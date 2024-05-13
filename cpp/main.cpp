@@ -1,3 +1,11 @@
+/*
+ * This is a simple calculator program that can do basic operations.
+ * It includes a math syntax analyzer that parses and evaluates mathematical expressions.
+ *
+ * Created by: Electrodiux-pbh
+ * Repository: https://github.com/Electrodiux-pbh/console-calculator
+ */
+
 #include<iostream>
 #include<string>
 #include<cmath>
@@ -188,6 +196,13 @@ std::unique_ptr<Token> parseToken(std::string expression) {
 	return std::make_unique<NumberToken>(parseNumber(expression));
 }
 
+std::unique_ptr<Token> compileExpression(std::string expression) {
+	std::string expressionWithoutSpaces = expression;
+	expressionWithoutSpaces.erase(std::remove(expressionWithoutSpaces.begin(), expressionWithoutSpaces.end(), ' '), expressionWithoutSpaces.end());
+
+	return parseToken(expressionWithoutSpaces);
+}
+
 // Program functions
 
 void help() {
@@ -219,20 +234,15 @@ int main() {
 		else if (action == "o") {
 			std::cout << "Enter a operation: ";
 
-			std::string expression;
-			std::getline(std::cin, expression);
+			std::string expression_str;
+			std::getline(std::cin, expression_str);
 
 			std::cout << std::endl;
 
-			// Remove all spaces from the expression
-			std::string expressionWithoutSpaces = expression;
-			expressionWithoutSpaces.erase(std::remove(expressionWithoutSpaces.begin(), expressionWithoutSpaces.end(), ' '), expressionWithoutSpaces.end());
+			auto expression = compileExpression(expression_str);
+			double result = expression->resolve();
 
-			// Parse the expression
-			std::unique_ptr<Token> token = parseToken(expressionWithoutSpaces);
-			double result = token->resolve();
-
-			std::cout << "The result from (" << expression << ") is " << result << std::endl;
+			std::cout << expression_str << " = " << result << std::endl;
 		}
 		else {
 			unrecognizedAction();
