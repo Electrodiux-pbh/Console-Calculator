@@ -206,10 +206,20 @@ std::unique_ptr<Token> compileExpression(std::string expression) {
 // Program functions
 
 void help() {
-	std::cout << "Commands:\n";
+	std::cout << "Program created by Electrodiux-pbh (c) https://github.com/Electrodiux-pbh/console-calculator/\n";
+	std::cout << "\nCommands:\n";
 	std::cout << " - (h): prints the help to the console\n";
 	std::cout << " - (q): quits the program\n";
 	std::cout << " - (o): execute a operation\n";
+	std::cout << "\nAvalaible operations:\n";
+	std::cout << " - Addition (+)\n";
+	std::cout << " - Substraction (-)\n";
+	std::cout << " - Multiplication (*)\n";
+	std::cout << " - Divition (/)\n";
+	std::cout << " - Power (^)\n";
+	std::cout << "\nConstants:\n";
+	std::cout << " - pi = 3.14159265358979323846\n";
+	std::cout << " - e = 2.71828182845904523536\n";
 }
 
 void unrecognizedAction() {
